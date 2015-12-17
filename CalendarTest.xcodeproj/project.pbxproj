@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD5FD9171C21A66D00815DE1 /* CustomDayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */; };
 		FD91C4061C1EDBAA00971FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4051C1EDBAA00971FD8 /* AppDelegate.swift */; };
 		FD91C4081C1EDBAA00971FD8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4071C1EDBAA00971FD8 /* ViewController.swift */; };
 		FD91C40B1C1EDBAA00971FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD91C4091C1EDBAA00971FD8 /* Main.storyboard */; };
 		FD91C40D1C1EDBAA00971FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD91C40C1C1EDBAA00971FD8 /* Assets.xcassets */; };
 		FD91C4101C1EDBAA00971FD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD91C40E1C1EDBAA00971FD8 /* LaunchScreen.storyboard */; };
+		FD91C4181C1EDE8B00971FD8 /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */; };
+		FD91C41A1C1EE02800971FD8 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4191C1EE02800971FD8 /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDayButton.swift; sourceTree = "<group>"; };
 		FD91C4021C1EDBAA00971FD8 /* CalendarTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD91C4051C1EDBAA00971FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FD91C4071C1EDBAA00971FD8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		FD91C40C1C1EDBAA00971FD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD91C40F1C1EDBAA00971FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FD91C4111C1EDBAA00971FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
+		FD91C4191C1EE02800971FD8 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,9 @@
 			children = (
 				FD91C4051C1EDBAA00971FD8 /* AppDelegate.swift */,
 				FD91C4071C1EDBAA00971FD8 /* ViewController.swift */,
+				FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */,
+				FD91C4191C1EE02800971FD8 /* Util.swift */,
+				FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */,
 				FD91C4091C1EDBAA00971FD8 /* Main.storyboard */,
 				FD91C40C1C1EDBAA00971FD8 /* Assets.xcassets */,
 				FD91C40E1C1EDBAA00971FD8 /* LaunchScreen.storyboard */,
@@ -135,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD5FD9171C21A66D00815DE1 /* CustomDayButton.swift in Sources */,
 				FD91C4081C1EDBAA00971FD8 /* ViewController.swift in Sources */,
 				FD91C4061C1EDBAA00971FD8 /* AppDelegate.swift in Sources */,
+				FD91C4181C1EDE8B00971FD8 /* CalendarDayCell.swift in Sources */,
+				FD91C41A1C1EE02800971FD8 /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +262,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CalendarTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ASTK.CalendarTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -261,6 +274,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CalendarTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ASTK.CalendarTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -286,6 +300,7 @@
 				FD91C4161C1EDBAA00971FD8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
