@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CalendarViewController.swift
 //  CalendarTest
 //
 //  Created by 麻生 拓弥 on 2015/12/14.
@@ -8,20 +8,25 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalendarViewController: UIViewController,UICollectionViewDelegate {
 
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var subTitleLabel: UILabel!
+    
+    // Top画面からカテゴリ名を受け取る(例：sdt)
+    var keyword: String?
     
     // MARK:- Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "SDT Advent Calendar 2015"
+        self.navigationItem.title = "Advent Calendar 2015"
+        self.subTitleLabel.text = "12月_" + keyword!
         
         // StatusBar の色を白にする
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
-        // CollectionView の設定
+        // CollectionView の設定(でないはず)
         self.collectionView.showsVerticalScrollIndicator = false
     }
 
@@ -61,11 +66,19 @@ class ViewController: UIViewController {
         
         // Util からでディスプレイサイズ取得
         // Width はそれを使い，高さは適切な値で返してやる
-        let returnSize = CGSize(width: Util.returnDisplaySize().width/7, height: (self.collectionView.frame.size.height - barHeight)/5)
+        let returnSize = CGSize(width: Util.returnDisplaySize().width/7, height: (self.collectionView.frame.size.height - barHeight-30)/5)
         
         return returnSize
     }
     
+    // ヘッダーのサイズを設定
+    func collectionView(collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        referenceSizeForHeaderInSection section: Int) -> CGSize {
+            let size = CGSize(width: Util.returnDisplaySize().width, height: 30)
+            return size
+    }
+        
     /// セル選択時の遷移処理
     /**
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

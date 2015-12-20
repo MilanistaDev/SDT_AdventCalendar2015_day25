@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+
+        // NavigationBar のテキスト色変更
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         return true
     }
 
