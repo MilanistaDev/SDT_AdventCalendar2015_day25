@@ -17,6 +17,7 @@
 		FD91C4101C1EDBAA00971FD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD91C40E1C1EDBAA00971FD8 /* LaunchScreen.storyboard */; };
 		FD91C4181C1EDE8B00971FD8 /* CalendarDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */; };
 		FD91C41A1C1EE02800971FD8 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4191C1EE02800971FD8 /* Util.swift */; };
+		FDE99FDB1C2994630004CD3D /* ViewArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE99FDA1C2994630004CD3D /* ViewArticleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		FD91C4111C1EDBAA00971FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDayCell.swift; sourceTree = "<group>"; };
 		FD91C4191C1EE02800971FD8 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		FDE99FDA1C2994630004CD3D /* ViewArticleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewArticleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				FD91C4051C1EDBAA00971FD8 /* AppDelegate.swift */,
 				FD00D1EE1C24AFA800438CFD /* TopViewController.swift */,
 				FD91C4071C1EDBAA00971FD8 /* CalendarViewController.swift */,
+				FDE99FDA1C2994630004CD3D /* ViewArticleViewController.swift */,
 				FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */,
 				FD91C4191C1EE02800971FD8 /* Util.swift */,
 				FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */,
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDE99FDB1C2994630004CD3D /* ViewArticleViewController.swift in Sources */,
 				FD00D1EF1C24AFA800438CFD /* TopViewController.swift in Sources */,
 				FD5FD9171C21A66D00815DE1 /* CustomDayButton.swift in Sources */,
 				FD91C4081C1EDBAA00971FD8 /* CalendarViewController.swift in Sources */,
