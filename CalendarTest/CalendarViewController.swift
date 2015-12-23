@@ -22,9 +22,16 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     let kStoryboardName = "Main"
     let kNextStoryboardId = "PreviewVC"
     
+    let kAuthorName = "authorName"
+    let kArticleTitleName = "articleTitleName"
+    let kAccessLinkURL = "accessLinkURL"
+    
     // 取得したデータ格納用
     var feedDic: NSDictionary = [ : ]
-    var articleDataArray :NSArray = []
+    var articleDataArray: NSArray = []
+    
+    // 次の画面の渡すデータ用の NSDictionary
+    var selectedArticleDataDic: NSDictionary = [ : ]
     
     // Top画面からカテゴリ名を受け取る(例：sdt)
     var keyword: String?
@@ -87,8 +94,6 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
                 print(error)
             }
             self.subTitleLabel.text = self.feedDic["title"] as? String
-            self.authorNameLabel.text = (self.articleDataArray[0])["author"] as? String
-            self.articleTitleLabel.text = (self.articleDataArray[0])["title"] as? String
         }
     }
     
@@ -106,12 +111,12 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         
         // Swift 2系から？
         let unitFlags: NSCalendarUnit = [ .Year,
-            .Month,
-            .Day,
-            .Weekday,
-            .Hour,
-            .Minute,
-            .Second ]
+                                          .Month,
+                                          .Day,
+                                          .Weekday,
+                                          .Hour,
+                                          .Minute,
+                                          .Second ]
         
         // date(今回は12/1)が何曜か(weekdayは1から)
         let components = calendar.components(unitFlags, fromDate:date)
@@ -144,8 +149,7 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         let storyboard:UIStoryboard = UIStoryboard(name: kStoryboardName, bundle: nil)
         let receiveview:ViewArticleViewController = storyboard.instantiateViewControllerWithIdentifier(url) as! ViewArticleViewController
         // 次の画面にキーワードを値渡し
-        receiveview.articleLink = (self.articleDataArray[2])["link"] as? String
-        receiveview.articleNaviTitle = self.articleTitleLabel.text
+        receiveview.receivedArticleDataDic = self.selectedArticleDataDic
         self.navigationController?.pushViewController(receiveview, animated: true)
         //self.presentViewController(receiveview, animated: false, completion: nil)
     }
@@ -156,9 +160,19 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
+        let authorName = (self.articleDataArray[indexPath.row-weekDay+1])["author"] as! String
+        let articleTitleName = (self.articleDataArray[indexPath.row-weekDay+1])["title"] as! String
+        let accessLinkURL = (self.articleDataArray[indexPath.row-weekDay+1])["link"] as! String
 
+        // 次の画面に渡す用のデータDictionaryにデータを入れる
+        self.selectedArticleDataDic = [kAuthorName : authorName,
+                                       kArticleTitleName : articleTitleName,
+                                       kAccessLinkURL : accessLinkURL]
+        // 表示部分に表示
+        self.authorNameLabel.text = self.selectedArticleDataDic[kAuthorName] as? String
+        self.articleTitleLabel.text = self.selectedArticleDataDic[kArticleTitleName] as? String
     }
-        
+    
     // MARK: - UICollectionViewDataSource Protocol
     
     /// セクション数

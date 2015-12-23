@@ -11,9 +11,11 @@ import UIKit
 class ViewArticleViewController: UIViewController, UIWebViewDelegate {
 
     // カレンダー画面から記事のURL，タイトルを受け取る
-    var articleLink: String?
-    var articleNaviTitle: String?
+    var receivedArticleDataDic: NSDictionary = [ : ]
     
+    let kAuthorName = "authorName"
+    let kArticleTitleName = "articleTitleName"
+    let kAccessLinkURL = "accessLinkURL"
     
     @IBOutlet var webView: UIWebView!
     
@@ -23,10 +25,10 @@ class ViewArticleViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         self.webView.delegate = self
         
-        self.navigationItem.title = articleNaviTitle!
+        self.navigationItem.title = self.receivedArticleDataDic[kArticleTitleName] as? String
         
         // 記事のURLからNSURLを生成
-        let url = NSURL(string: self.articleLink!)
+        let url = NSURL(string: (self.receivedArticleDataDic[kAccessLinkURL] as? String)! )
         
         // リクエスト生成
         let request: NSURLRequest = NSURLRequest(URL: url!)
