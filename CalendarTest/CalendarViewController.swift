@@ -17,6 +17,9 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     @IBOutlet var authorNameLabel: UILabel!
     @IBOutlet var articleTitleLabel: UILabel!
 
+    // インジケータ用
+    var HUD:BXProgressHUD?
+    
     let kAdventCalendarURLPrefix = "https://ajax.googleapis.com/ajax/services/feed/load?q=http://qiita.com/advent-calendar/2015/"
     let kAdventCalendarURLSuffix = "/feed&num=25&hl=ja&v=1.0"
     let kStoryboardName = "Main"
@@ -53,6 +56,9 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         // 12月で必要な計算実行
         self .dayCalc()
         
+        // インジケータ開始
+        self.HUD =  BXProgressHUD.Builder(forView: self.view).text("Loading") .create()
+        self.HUD!.show()
         // 通信
         self .getFeedJSONData(keyword!)
     }
@@ -93,6 +99,9 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
                 // TODO:通信失敗時のエラーハンドリング
                 print(error)
             }
+            // インジケータ隠す
+            self.HUD!.hide()
+            BXProgressHUD.Builder(forView: self.view).mode(.Checkmark).text("Completed!!").show().hide(afterDelay: 2)
             self.subTitleLabel.text = self.feedDic["title"] as? String
         }
     }
@@ -125,7 +134,6 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         // 指定月(今回は12月)は何日あるか
         let range : NSRange = calendar.rangeOfUnit(.Day, inUnit:.Month , forDate:date)
         theNumOfDays =  range.length;
-        
     }
     
     // MARK: - IBAction
@@ -212,7 +220,6 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     
     // MARK: - UICollectionViewDelegateFlowLayout method
     
-    
     /// セルのサイズ
     func collectionView(collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -247,7 +254,5 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

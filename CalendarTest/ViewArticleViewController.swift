@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import BXProgressHUD
 
 class ViewArticleViewController: UIViewController, UIWebViewDelegate {
-
+    
+    @IBOutlet var webView: UIWebView!
+    
     // カレンダー画面から記事のURL，タイトルを受け取る
     var receivedArticleDataDic: NSDictionary = [ : ]
     
@@ -17,15 +20,19 @@ class ViewArticleViewController: UIViewController, UIWebViewDelegate {
     let kArticleTitleName = "articleTitleName"
     let kAccessLinkURL = "accessLinkURL"
     
-    @IBOutlet var webView: UIWebView!
+    // インジケータ用
+    var HUD:BXProgressHUD?
     
     // MARK:- Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.webView.delegate = self
-        
+    
         self.navigationItem.title = self.receivedArticleDataDic[kArticleTitleName] as? String
+        
+        // インジケータ生成
+        self.HUD = BXProgressHUD.Builder(forView: self.view).text("Loading") .create()
         
         // 記事のURLからNSURLを生成
         let url = NSURL(string: (self.receivedArticleDataDic[kAccessLinkURL] as? String)! )
@@ -39,15 +46,16 @@ class ViewArticleViewController: UIViewController, UIWebViewDelegate {
 
     
     // UIWebViewDelegate method
-    /**
+    
     func webViewDidStartLoad(webView: UIWebView) {
-        
+    
+        self.HUD!.show()
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
     
+        self.HUD!.hide()
     }
-    */
     
     // MARK:- Memory warning
     
