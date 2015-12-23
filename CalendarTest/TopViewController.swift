@@ -38,7 +38,15 @@ class TopViewController: UIViewController, UITextFieldDelegate {
     @IBAction func sendKeywordButton(sender: AnyObject) {
         
         if (self.keywordTextFeild.text == "") {
-            // TODO: アラート処理
+            // アラート処理
+            let alertController = UIAlertController(title: "エラー",
+                                                  message: "カテゴリ名を記入してください",
+                                           preferredStyle: .Alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
         } else {
             // 次の画面の StoryboardID を渡す
             self .passKeyword(kNextStoryboardId)

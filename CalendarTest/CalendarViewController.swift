@@ -16,6 +16,7 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     @IBOutlet var subTitleLabel: UILabel!
     @IBOutlet var authorNameLabel: UILabel!
     @IBOutlet var articleTitleLabel: UILabel!
+    @IBOutlet var viewArticleButton: CustomDayButton!
 
     // インジケータ用
     var HUD:BXProgressHUD?
@@ -49,9 +50,11 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         
         self.navigationItem.title = "Qiita Advent Calendar 2015"
+        self.viewArticleButton.enabled = false
         
         // StatusBar の色を白にする
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+        
 
         // 12月で必要な計算実行
         self .dayCalc()
@@ -83,6 +86,19 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
             case .Success(let value):
                 if let jsonDic = value as? NSDictionary {
                     
+                    let statusCode = jsonDic["responseStatus"] as! NSInteger
+                    if (statusCode == 400) {
+                        self.HUD!.hide()
+                        let weakSelf = self
+                        weakSelf .showAlertAtReturnTop("Advent Calendar が存在しないようです")
+                        return
+                    }
+                    if (statusCode != 200 && statusCode != 400) {
+                        self.HUD!.hide()
+                        let weakSelf = self
+                        weakSelf .showAlertAtReturnTop("エラーです")
+                        return
+                    }
                     // Feed の JSON データが入る
                     let responseData = jsonDic["responseData"] as! NSDictionary
                     
@@ -94,15 +110,19 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
                     
                     // 最新の記事から入るのでわかりやすいように古い方を最初に入れ替える
                     self.articleDataArray = self.articleDataArray.reverseObjectEnumerator().allObjects
+                    
+                    self.subTitleLabel.text = self.feedDic["title"] as? String
+                    // インジケータ隠す
+                    self.HUD!.hide()
+                    BXProgressHUD.Builder(forView: self.view).mode(.Checkmark).text("Completed!!").show().hide(afterDelay: 2)
                 }
             case .Failure(let error):
                 // TODO:通信失敗時のエラーハンドリング
                 print(error)
+                self.HUD!.hide()
+                let weakSelf = self
+                weakSelf .showAlertAtReturnTop("ネットワークエラーのようです")
             }
-            // インジケータ隠す
-            self.HUD!.hide()
-            BXProgressHUD.Builder(forView: self.view).mode(.Checkmark).text("Completed!!").show().hide(afterDelay: 2)
-            self.subTitleLabel.text = self.feedDic["title"] as? String
         }
     }
     
@@ -140,9 +160,10 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     
     @IBAction func viewArticle(sender: AnyObject) {
         
-        let urlStr = (self.articleDataArray[0])["link"] as! String
-        if ( urlStr == "") {
-            // TODO: アラート処理
+        let url = self.selectedArticleDataDic[kAccessLinkURL] as! String
+        if ( url == "") {
+            // アラート処理
+            self .showNormalAlert("URLが存在しません・・・")
         } else {
             // 次の画面の StoryboardID を渡す
             self .passArticleLink(kNextStoryboardId)
@@ -168,9 +189,19 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
-        let authorName = (self.articleDataArray[indexPath.row-weekDay+1])["author"] as! String
-        let articleTitleName = (self.articleDataArray[indexPath.row-weekDay+1])["title"] as! String
-        let accessLinkURL = (self.articleDataArray[indexPath.row-weekDay+1])["link"] as! String
+        // indexPath.row を操作(カレンダー次第で変わる)
+        let index : NSInteger = indexPath.row-weekDay+1
+        
+        // 記事がないところはエラーアラート表示
+        if (index < 0 || index > self.articleDataArray.count-1) {
+            self .showNormalAlert("記事がありません")
+            return
+        }
+        
+        // 該当記事データを抜き取る
+        let authorName = (self.articleDataArray[index])["author"] as! String
+        let articleTitleName = (self.articleDataArray[index])["title"] as! String
+        let accessLinkURL = (self.articleDataArray[index])["link"] as! String
 
         // 次の画面に渡す用のデータDictionaryにデータを入れる
         self.selectedArticleDataDic = [kAuthorName : authorName,
@@ -179,6 +210,7 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         // 表示部分に表示
         self.authorNameLabel.text = self.selectedArticleDataDic[kAuthorName] as? String
         self.articleTitleLabel.text = self.selectedArticleDataDic[kArticleTitleName] as? String
+        self.viewArticleButton.enabled = true
     }
     
     // MARK: - UICollectionViewDataSource Protocol
@@ -246,6 +278,44 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         referenceSizeForHeaderInSection section: Int) -> CGSize {
             let size = CGSize(width: Util.returnDisplaySize().width, height: 30)
             return size
+    }
+    
+    // MARK:- Alert
+    
+    /**
+     * エラーアラート表示(通常)
+     * 
+     * @param msg エラーメッセージ
+     */
+    func showNormalAlert(msg: String) {
+    
+        let alertController = UIAlertController(title: "エラー", message: msg, preferredStyle: .Alert)
+        let pushAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(pushAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    /**
+     * エラーアラート表示(前の画面に戻す系)
+     *
+     * @param msg エラーメッセージ
+     */
+    func showAlertAtReturnTop(msg: String) {
+        
+        let alertController = UIAlertController(title: "エラー", message: msg, preferredStyle: .Alert)
+        let otherAction = UIAlertAction(title: "前の画面に戻る", style: .Default) {
+            action in self .backTop()
+        }
+        alertController.addAction(otherAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
+    /**
+     * エラー時にカテゴリ入力画面に戻す
+     *
+     */
+    func backTop() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     // MARK:- Memory Warning
