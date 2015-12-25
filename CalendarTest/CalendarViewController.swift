@@ -16,6 +16,7 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     @IBOutlet var subTitleLabel: UILabel!
     @IBOutlet var authorNameLabel: UILabel!
     @IBOutlet var articleTitleLabel: UILabel!
+    @IBOutlet var heightConstraints: NSLayoutConstraint!
     @IBOutlet var viewArticleButton: CustomDayButton!
 
     // インジケータ用
@@ -55,7 +56,6 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
         // StatusBar の色を白にする
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
-
         // 12月で必要な計算実行
         self .dayCalc()
         
@@ -186,7 +186,6 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
     // MARK: - UICollectionViewDelegate method
     
     /// セル選択時の遷移処理
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     
         // indexPath.row を操作(カレンダー次第で変わる)
@@ -205,11 +204,22 @@ class CalendarViewController: UIViewController,UICollectionViewDelegate, UIColle
 
         // 次の画面に渡す用のデータDictionaryにデータを入れる
         self.selectedArticleDataDic = [kAuthorName : authorName,
-                                       kArticleTitleName : articleTitleName,
-                                       kAccessLinkURL : accessLinkURL]
-        // 表示部分に表示
+                                 kArticleTitleName : articleTitleName,
+                                    kAccessLinkURL : accessLinkURL]
+        // title の高さ考慮
+        let viewWidth = UIScreen.mainScreen().bounds.width * 0.9
+        let articleTitle = self.selectedArticleDataDic[kArticleTitleName] as? String
+        let displaysize: CGSize = Util .returnDisplaySize()
+        let textSize = articleTitle!.getTextSize(UIFont.systemFontOfSize(17),viewWidth: viewWidth, padding: 8)
+
+        // 表示部分に表示(3.5inchだけ文字サイズ変更)
+        if (displaysize.height == 480) {
+            self.authorNameLabel.font = UIFont.systemFontOfSize(12)
+            self.articleTitleLabel.font = UIFont.systemFontOfSize(12)
+        }
         self.authorNameLabel.text = self.selectedArticleDataDic[kAuthorName] as? String
-        self.articleTitleLabel.text = self.selectedArticleDataDic[kArticleTitleName] as? String
+        self.articleTitleLabel.text = articleTitle
+        self.heightConstraints.constant = textSize.height
         self.viewArticleButton.enabled = true
     }
     

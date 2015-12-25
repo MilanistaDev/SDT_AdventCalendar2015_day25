@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E9FD8CC10164392DAFC8A15E /* Pods_CalendarTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A60F0BB21AF318A445DCB032 /* Pods_CalendarTest.framework */; };
 		FD00D1EF1C24AFA800438CFD /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD00D1EE1C24AFA800438CFD /* TopViewController.swift */; };
+		FD39F2051C2D865C0091708C /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD39F2041C2D865C0091708C /* String.swift */; };
+		FD39F2071C2D90EF0091708C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FD39F2061C2D90EF0091708C /* Settings.bundle */; };
 		FD5FD9171C21A66D00815DE1 /* CustomDayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */; };
 		FD91C4061C1EDBAA00971FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4051C1EDBAA00971FD8 /* AppDelegate.swift */; };
 		FD91C4081C1EDBAA00971FD8 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91C4071C1EDBAA00971FD8 /* CalendarViewController.swift */; };
@@ -25,6 +27,8 @@
 		A60F0BB21AF318A445DCB032 /* Pods_CalendarTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalendarTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDA187980C0EA2000C08C6D1 /* Pods-CalendarTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalendarTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CalendarTest/Pods-CalendarTest.debug.xcconfig"; sourceTree = "<group>"; };
 		FD00D1EE1C24AFA800438CFD /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
+		FD39F2041C2D865C0091708C /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		FD39F2061C2D90EF0091708C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDayButton.swift; sourceTree = "<group>"; };
 		FD91C4021C1EDBAA00971FD8 /* CalendarTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD91C4051C1EDBAA00971FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,11 +98,13 @@
 				FDE99FDA1C2994630004CD3D /* ViewArticleViewController.swift */,
 				FD5FD9161C21A66D00815DE1 /* CustomDayButton.swift */,
 				FD91C4191C1EE02800971FD8 /* Util.swift */,
+				FD39F2041C2D865C0091708C /* String.swift */,
 				FD91C4171C1EDE8B00971FD8 /* CalendarDayCell.swift */,
 				FD91C4091C1EDBAA00971FD8 /* Main.storyboard */,
 				FD91C40C1C1EDBAA00971FD8 /* Assets.xcassets */,
 				FD91C40E1C1EDBAA00971FD8 /* LaunchScreen.storyboard */,
 				FD91C4111C1EDBAA00971FD8 /* Info.plist */,
+				FD39F2061C2D90EF0091708C /* Settings.bundle */,
 			);
 			path = CalendarTest;
 			sourceTree = "<group>";
@@ -116,6 +122,7 @@
 				FD91C4001C1EDBAA00971FD8 /* Resources */,
 				E22BF3C82DC16627AE3F28CE /* Embed Pods Frameworks */,
 				6B85E3B34E3FA77C6F49A233 /* Copy Pods Resources */,
+				FD39F2081C2D918C0091708C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -164,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD39F2071C2D90EF0091708C /* Settings.bundle in Resources */,
 				FD91C4101C1EDBAA00971FD8 /* LaunchScreen.storyboard in Resources */,
 				FD91C40D1C1EDBAA00971FD8 /* Assets.xcassets in Resources */,
 				FD91C40B1C1EDBAA00971FD8 /* Main.storyboard in Resources */,
@@ -218,6 +226,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CalendarTest/Pods-CalendarTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FD39F2081C2D918C0091708C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APP_VERSION=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" $PRODUCT_SETTINGS_PATH)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:1:DefaultValue ${APP_VERSION}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Settings.bundle/Root.plist\"\n\nBUILD_NUMBER=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" $PRODUCT_SETTINGS_PATH)\n/usr/libexec/PlistBuddy -c \"Set :PreferenceSpecifiers:2:DefaultValue ${BUILD_NUMBER}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/Settings.bundle/Root.plist\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -231,6 +252,7 @@
 				FD91C4081C1EDBAA00971FD8 /* CalendarViewController.swift in Sources */,
 				FD91C4061C1EDBAA00971FD8 /* AppDelegate.swift in Sources */,
 				FD91C4181C1EDE8B00971FD8 /* CalendarDayCell.swift in Sources */,
+				FD39F2051C2D865C0091708C /* String.swift in Sources */,
 				FD91C41A1C1EE02800971FD8 /* Util.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

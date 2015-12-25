@@ -182,7 +182,7 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="1" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MnY-8e-cK8">
-                                        <rect key="frame" x="5" y="4" width="590" height="21"/>
+                                        <rect key="frame" x="5" y="4" width="590" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -234,8 +234,11 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECU-2a-Pv8">
-                                        <rect key="frame" x="15" y="65" width="33.5" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="570" translatesAutoresizingMaskIntoConstraints="NO" id="ECU-2a-Pv8">
+                                        <rect key="frame" x="15" y="50.5" width="540" height="20.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20.5" id="bgY-hl-Fo6"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -246,7 +249,8 @@
                                     <constraint firstItem="8FD-8I-FsJ" firstAttribute="top" secondItem="Z3T-Mv-QBF" secondAttribute="top" constant="15" id="DgW-dZ-1mV"/>
                                     <constraint firstAttribute="bottom" secondItem="fDz-eo-ROO" secondAttribute="bottom" constant="8" id="FQT-Lb-mrU"/>
                                     <constraint firstItem="ECU-2a-Pv8" firstAttribute="leading" secondItem="Z3T-Mv-QBF" secondAttribute="leading" constant="15" id="HOt-HD-Xyx"/>
-                                    <constraint firstItem="ECU-2a-Pv8" firstAttribute="top" secondItem="8FD-8I-FsJ" secondAttribute="bottom" constant="29.5" id="VfP-tl-3m8"/>
+                                    <constraint firstItem="ECU-2a-Pv8" firstAttribute="width" secondItem="Z3T-Mv-QBF" secondAttribute="width" multiplier="9/10" id="S5T-PY-MPt"/>
+                                    <constraint firstItem="ECU-2a-Pv8" firstAttribute="top" secondItem="8FD-8I-FsJ" secondAttribute="bottom" constant="15" id="VfP-tl-3m8"/>
                                     <constraint firstAttribute="trailing" secondItem="fDz-eo-ROO" secondAttribute="trailing" constant="8" id="fVs-eF-r7R"/>
                                     <constraint firstItem="8FD-8I-FsJ" firstAttribute="leading" secondItem="Z3T-Mv-QBF" secondAttribute="leading" constant="15" id="ryH-ke-SjI"/>
                                 </constraints>
@@ -272,6 +276,7 @@
                         <outlet property="articleTitleLabel" destination="ECU-2a-Pv8" id="mch-i5-yI8"/>
                         <outlet property="authorNameLabel" destination="8FD-8I-FsJ" id="IdY-c6-q6t"/>
                         <outlet property="collectionView" destination="nxh-eO-KPy" id="AIH-Xw-7ed"/>
+                        <outlet property="heightConstraints" destination="bgY-hl-Fo6" id="16J-dC-U0I"/>
                         <outlet property="subTitleLabel" destination="MnY-8e-cK8" id="FUR-FA-vhg"/>
                         <outlet property="viewArticleButton" destination="fDz-eo-ROO" id="Ccr-j6-Q6t"/>
                     </connections>
