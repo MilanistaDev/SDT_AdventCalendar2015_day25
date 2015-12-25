@@ -8,10 +8,12 @@
 
 import UIKit
 import BXProgressHUD
+import Social
 
 class ViewArticleViewController: UIViewController, UIWebViewDelegate {
     
     @IBOutlet var webView: UIWebView!
+    var myComposeView : SLComposeViewController!
     
     // カレンダー画面から記事のURL，タイトルを受け取る
     var receivedArticleDataDic: NSDictionary = [ : ]
@@ -29,7 +31,12 @@ class ViewArticleViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         self.webView.delegate = self
     
+        // NavigationBar
         self.navigationItem.title = self.receivedArticleDataDic[kArticleTitleName] as? String
+        let rightTweetBarButtonItem:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action,
+                                                                                   target: self,
+                                                                                   action: "tweetButtonTapped")
+        self.navigationItem.setRightBarButtonItems([rightTweetBarButtonItem], animated: true)
         
         // インジケータ生成
         self.HUD = BXProgressHUD.Builder(forView: self.view).text("Loading") .create()
@@ -44,8 +51,22 @@ class ViewArticleViewController: UIViewController, UIWebViewDelegate {
         self.webView.loadRequest(request)
     }
 
+    // MARK:- Provate method
+    // Tweet 機能
+    func tweetButtonTapped() {
+
+        myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+        
+        // 投稿テキスト
+        let tweetContentsText = (self.receivedArticleDataDic[kAuthorName] as? String)!+"\n"+(self.receivedArticleDataDic[kArticleTitleName] as? String)!+"\n"+(self.receivedArticleDataDic[kAccessLinkURL] as? String)!
+        myComposeView.setInitialText(tweetContentsText)
+        
+        // myComposeViewの画面遷移.
+        self.presentViewController(myComposeView, animated: true, completion: nil)
+    }
     
-    // UIWebViewDelegate method
+    
+    // MARK:- UIWebViewDelegate method
     
     func webViewDidStartLoad(webView: UIWebView) {
     
